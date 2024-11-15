@@ -16,7 +16,13 @@ func main() {
 	logrus.SetLevel(logrus.InfoLevel)
 
 	db.Connect()
-	defer db.Db.Close()
+
+	sqlDB, err := db.Db.DB()
+	if err != nil {
+		logrus.Fatal("Error getting DB connection", err)
+	}
+
+	defer sqlDB.Close()
 
 	routes.RegisterRoutes(e)
 

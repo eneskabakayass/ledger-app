@@ -5,9 +5,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func LoggingMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+func LogRequest(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		logrus.Info("Method %s, URI: %s", c.Request().Method, c.Request().RequestURI)
+		logrus.WithFields(logrus.Fields{
+			"Method": c.Request().Method,
+			"Url":    c.Request().URL.String(),
+		}).Info("Incoming request")
+
 		return next(c)
 	}
 }
