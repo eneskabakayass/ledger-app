@@ -42,6 +42,7 @@ func main() {
 	routes.RegisterRoutes(e)
 
 	logrus.Infof("Starting server at port %s", cfg.Port)
+
 	if err := e.Start(":" + cfg.Port); err != nil {
 		logrus.Fatal("Error starting server", err)
 	}

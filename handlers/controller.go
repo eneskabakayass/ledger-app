@@ -46,5 +46,15 @@ func CreateUser(c echo.Context) error {
 }
 
 func GetAllUser(c echo.Context) error {
-	return c.String(http.StatusOK, "All User List")
+	var users []models.User
+
+	if err := database.Db.Find(&users).Error; err != nil {
+		logrus.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
+
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch user"})
+	}
+
+	logrus.Info(fmt.Sprintf("Status:%d, User Count:%d", http.StatusOK, len(users)))
+
+	return c.JSON(http.StatusOK, users)
 }
