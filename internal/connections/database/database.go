@@ -2,10 +2,10 @@ package database
 
 import (
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"ledger-app/config"
-	"log"
 )
 
 var Db *gorm.DB
@@ -17,8 +17,8 @@ func Connect() {
 
 	Db, err = gorm.Open(mysql.Open(cfg.DBUrl), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Error connecting to the database:", err)
+		logrus.Fatal("Error connecting to the database:", err)
 	}
 
-	log.Println("Connected to the database with GORM")
+	logrus.Info("Connected to the database with GORM")
 }

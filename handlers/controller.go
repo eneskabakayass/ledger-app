@@ -35,10 +35,13 @@ func CreateUser(c echo.Context) error {
 	}
 
 	if err := database.Db.Create(user).Error; err != nil {
+		logrus.Error(fmt.Sprintf("Failed to create user: %s", err.Error()))
+
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
 	}
 
 	logrus.Info(fmt.Sprintf("Status:%d, User Name:%s, User ID:%d", http.StatusCreated, user.Name, user.ID))
+
 	return c.JSON(http.StatusCreated, user)
 }
 

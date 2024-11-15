@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/joho/godotenv"
-	"log"
+	"github.com/sirupsen/logrus"
 	"os"
 )
 
@@ -14,17 +14,17 @@ type Config struct {
 func LoadEnvironment() Config {
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("Error loading not found .env file")
+		logrus.Error("Error loading .env file")
 	}
 
 	dbUrl := os.Getenv("DB_URL")
 	if dbUrl == "" {
-		log.Fatal("DB_URL environment variable is not set")
+		logrus.Error("DB_URL is required")
 	}
 
 	return Config{
 		Port:  getEnv("PORT", "3000"),
-		DBUrl: getEnv("DB_URL", "root:password@tcp(localhost:3306)"),
+		DBUrl: getEnv("DB_URL", "root@tcp(localhost:3306)/ledger_app"),
 	}
 }
 
