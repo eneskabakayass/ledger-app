@@ -5,7 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	"ledger-app/db"
+	"ledger-app/internal/connections/database"
 	"ledger-app/models"
 	"net/http"
 )
@@ -34,7 +34,7 @@ func CreateUser(c echo.Context) error {
 		})
 	}
 
-	if err := db.Db.Create(user).Error; err != nil {
+	if err := database.Db.Create(user).Error; err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
 	}
 

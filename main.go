@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"ledger-app/config"
-	"ledger-app/db"
+	"ledger-app/internal/connections/database"
 	"ledger-app/routes"
 )
 
@@ -25,9 +25,9 @@ func main() {
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 	logrus.SetLevel(logrus.InfoLevel)
 
-	db.Connect()
+	database.Connect()
 
-	sqlDB, err := db.Db.DB()
+	sqlDB, err := database.Db.DB()
 	if err != nil {
 		logrus.Fatal("Error getting DB connection", err)
 	}

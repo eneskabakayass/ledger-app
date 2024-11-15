@@ -4,7 +4,7 @@ import "github.com/go-playground/validator/v10"
 
 type User struct {
 	ID   uint   `gorm:"primaryKey"`
-	Name string `gorm:"not null" validate:"required,min=1,max=5"`
+	Name string `gorm:"not null" validate:"required,min=1,max=10"`
 }
 
 var validate *validator.Validate

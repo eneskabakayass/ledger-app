@@ -15,7 +15,7 @@ func TestLedger(t *testing.T) {
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 
-	err := handlers.HelloWorld(c)
+	err := handlers.GetAllUser(c)
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)

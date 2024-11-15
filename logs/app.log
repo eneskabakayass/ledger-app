@@ -1,0 +1,8 @@
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-15T16:15:54+03:00"}
+{"details":["Field Name failed validation: max parameter: 5"],"level":"error","msg":"Validation failed","time":"2024-11-15T16:15:54+03:00"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-15T16:16:20+03:00"}
+{"details":["Field Name failed validation: max parameter: 5"],"level":"error","msg":"Validation failed","time":"2024-11-15T16:16:20+03:00"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-15T16:16:24+03:00"}
+{"details":["Field Name failed validation: max parameter: 5"],"level":"error","msg":"Validation failed","time":"2024-11-15T16:16:24+03:00"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-15T16:16:37+03:00"}
+{"level":"info","msg":"Status:201, User Name:ilkbalim, User ID:36","time":"2024-11-15T16:16:37+03:00"}

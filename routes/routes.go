@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/labstack/echo/v4"
 	"ledger-app/handlers"
-	"ledger-app/middleware"
+	"ledger-app/internal/middleware"
 )
 
 func RegisterRoutes(e *echo.Echo) {
