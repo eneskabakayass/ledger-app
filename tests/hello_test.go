@@ -3,7 +3,7 @@ package tests
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
-	"ledger-app/controllers"
+	"ledger-app/handlers"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,7 +15,7 @@ func TestLedger(t *testing.T) {
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 
-	err := controllers.HelloWorld(c)
+	err := handlers.HelloWorld(c)
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)

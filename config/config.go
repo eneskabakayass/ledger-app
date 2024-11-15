@@ -11,10 +11,15 @@ type Config struct {
 	DBUrl string
 }
 
-func LoadConfig() Config {
+func LoadEnvironment() Config {
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("Error loading not found .env file")
+	}
+
+	dbUrl := os.Getenv("DB_URL")
+	if dbUrl == "" {
+		log.Fatal("DB_URL environment variable is not set")
 	}
 
 	return Config{

@@ -11,7 +11,7 @@ import (
 var Db *gorm.DB
 
 func Connect() {
-	cfg := config.LoadConfig()
+	cfg := config.LoadEnvironment()
 
 	var err error
 

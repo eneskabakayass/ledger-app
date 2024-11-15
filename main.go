@@ -8,8 +8,18 @@ import (
 	"ledger-app/routes"
 )
 
+func recoverPanic() {
+	if r := recover(); r != nil {
+		logrus.WithFields(logrus.Fields{
+			"error": r,
+		}).Error("Recovered from panic")
+	}
+}
+
 func main() {
-	cfg := config.LoadConfig()
+	defer recoverPanic()
+
+	cfg := config.LoadEnvironment()
 	e := echo.New()
 
 	logrus.SetFormatter(&logrus.JSONFormatter{})
@@ -22,10 +32,17 @@ func main() {
 		logrus.Fatal("Error getting DB connection", err)
 	}
 
-	defer sqlDB.Close()
+	defer func() {
+		err := sqlDB.Close()
+		if err != nil {
+			logrus.Error("Error closing DB connection", err)
+		}
+	}()
 
 	routes.RegisterRoutes(e)
 
 	logrus.Infof("Starting server at port %s", cfg.Port)
-	e.Logger.Fatal(e.Start(":" + cfg.Port))
+	if err := e.Start(":" + cfg.Port); err != nil {
+		logrus.Fatal("Error starting server", err)
+	}
 }
