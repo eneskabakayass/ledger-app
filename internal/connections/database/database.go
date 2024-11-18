@@ -2,10 +2,11 @@ package database
 
 import (
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"ledger-app/config"
+	"ledger-app/logger"
+	"ledger-app/models"
 )
 
 var Db *gorm.DB
@@ -17,8 +18,13 @@ func Connect() {
 
 	Db, err = gorm.Open(mysql.Open(cfg.DBUrl), &gorm.Config{})
 	if err != nil {
-		logrus.Fatal("Error connecting to the database:", err)
+		logger.Logger.Fatal("Error connecting to the database:", err)
 	}
 
-	logrus.Info("Connected to the database with GORM")
+	err = Db.AutoMigrate(&models.User{})
+	if err != nil {
+		logger.Logger.Fatal("Error migrate the database", err)
+	}
+
+	logger.Logger.Infof("Connected to the database with GORM")
 }

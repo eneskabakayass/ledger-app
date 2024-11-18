@@ -42,3 +42,130 @@
 {"details":["Field Name failed validation: required parameter: "],"level":"error","msg":"Validation failed","time":"2024-11-15T16:51:53+03:00"}
 {"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-15T16:51:53+03:00"}
 {"details":["Field Name failed validation: required parameter: "],"level":"error","msg":"Validation failed","time":"2024-11-15T16:51:53+03:00"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-16T17:35:25+03:00"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-16T17:35:28+03:00"}
+{"level":"info","msg":"Status:201, User Name:Enes, User ID:1","time":"2024-11-16T17:35:28+03:00"}
+{"Method":"GET","Url":"/usersBalance","level":"info","msg":"Incoming request","time":"2024-11-16T17:35:36+03:00"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-16T17:35:41+03:00"}
+{"level":"info","msg":"Status:200, User Count:1","time":"2024-11-16T17:35:41+03:00"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17T12:23:52+03:00"}
+{"level":"info","msg":"Status:201, User Name:samet, User ID:2","time":"2024-11-17T12:23:52+03:00"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17T12:23:55+03:00"}
+{"level":"info","msg":"Status:200, User Count:2","time":"2024-11-17T12:23:55+03:00"}
+{"level":"info","msg":"Starting server at port %s3000","time":"2024-11-17 13:30:16"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:30:43"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 13:30:43"}
+{"level":"info","msg":"dewdw","time":"2024-11-17 13:32:18"}
+{"level":"info","msg":"dewdw","time":"2024-11-17 13:33:44"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 13:34:11"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 13:37:28"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:43:47"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 13:43:47"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:44:39"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 13:44:39"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:45:15"}
+{"level":"info","msg":"Starting server at port ","time":"2024-11-17 13:45:15"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:45:21"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 13:45:21"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:45:35"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 13:45:35"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:45:41"}
+{"level":"info","msg":"Starting server at port 3dd000","time":"2024-11-17 13:45:41"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 13:46:36"}
+{"level":"info","msg":"Starting server at port 3dd000","time":"2024-11-17 13:46:36"}
+{"level":"fatal","msg":"Error starting serverlisten tcp: lookup tcp/3dd000: unknown port","time":"2024-11-17 13:46:36"}
+{"level":"error","msg":"DB_URL is required","time":"2024-11-17 14:44:57"}
+{"level":"error","msg":"DB_URL is required","time":"2024-11-17 14:44:57"}
+{"level":"error","msg":"DB_URL is required","time":"2024-11-17 14:46:17"}
+{"level":"error","msg":"DB_URL is required","time":"2024-11-17 14:46:17"}
+{"level":"fatal","msg":"Error connecting to the database:Error 1045 (28000): Access denied for user ''@'localhost' (using password: NO)","time":"2024-11-17 14:46:17"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 14:48:08"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 14:48:08"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 14:52:41"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 14:52:41"}
+{"Method":"GET","Url":"/health","level":"info","msg":"Incoming request","time":"2024-11-17 14:52:43"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17 14:55:17"}
+{"level":"info","msg":"Status:201, User Name:samet, User ID:1","time":"2024-11-17 14:55:17"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17 14:55:18"}
+{"level":"info","msg":"Status:201, User Name:samet, User ID:2","time":"2024-11-17 14:55:18"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17 14:55:36"}
+{"level":"error","msg":"Failed to create user: Error 1146 (42S02): Table 'ledger_app.users' doesn't exist","time":"2024-11-17 14:55:36"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 14:56:34"}
+{"level":"error","msg":"Failed to fetch user: Error 1146 (42S02): Table 'ledger_app.users' doesn't exist","time":"2024-11-17 14:56:34"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 15:08:58"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 15:08:58"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17 15:09:02"}
+{"level":"info","msg":"Status:201, User Name:samet, User ID:1","time":"2024-11-17 15:09:02"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 16:58:27"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 16:58:27"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 16:59:25"}
+{"level":"error","msg":"Invalid credit input","time":"2024-11-17 16:59:25"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:00:21"}
+{"level":"error","msg":"Invalid credit input","time":"2024-11-17 17:00:21"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:00:36"}
+{"level":"error","msg":"User not found","time":"2024-11-17 17:00:36"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:01:31"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-17 17:01:31"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:01:34"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-17 17:01:34"}
+{"Method":"GET","Url":"/health","level":"info","msg":"Incoming request","time":"2024-11-17 17:01:38"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17 17:01:46"}
+{"Status":200,"User ID":1,"User Name":"samet","level":"info","msg":"Listen all users","time":"2024-11-17 17:01:46"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:01:51"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-17 17:01:51"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:01:52"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-17 17:01:52"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:06:25"}
+{"Added Credit":50,"New Credit":50,"Old Credit":0,"User ID":"","User Name":"samet","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:06:25"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:06:31"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-17 17:06:31"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:07:20"}
+{"Added Credit":40,"New Credit":90,"Old Credit":50,"User ID":"","User Name":"samet","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:07:20"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:08:34"}
+{"Added Credit":40,"New Credit":130,"Old Credit":90,"User ID":"","User Name":"samet","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:08:34"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 17:08:39"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 17:08:39"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:08:41"}
+{"Added Credit":40,"New Credit":170,"Old Credit":130,"User ID":"","User Name":"samet","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:08:41"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 17:09:02"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 17:09:02"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:04"}
+{"level":"error","msg":"User not found","time":"2024-11-17 17:09:04"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:18"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-17 17:09:18"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:24"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-17 17:09:24"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 17:09:34"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 17:09:34"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:39"}
+{"level":"error","msg":"User not found","time":"2024-11-17 17:09:39"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:39"}
+{"level":"error","msg":"User not found","time":"2024-11-17 17:09:39"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:43"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-17 17:09:43"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:44"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-17 17:09:44"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:51"}
+{"Status":200,"User ID":2,"User Name":"samet","level":"info","msg":"Listen all users","time":"2024-11-17 17:09:51"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:55"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-17 17:09:55"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:55"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-17 17:09:55"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:56"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-17 17:09:56"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:09:59"}
+{"Added Credit":40,"New Credit":40,"Old Credit":0,"User ID":"2","User Name":"samet","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:09:59"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-17 17:13:37"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-17 17:13:37"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-17 17:13:55"}
+{"Status":200,"User ID":3,"User Name":"ilkbal","level":"info","msg":"Listen all users","time":"2024-11-17 17:13:55"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:14:05"}
+{"Status":200,"User Count":3,"level":"info","msg":"Listen all users","time":"2024-11-17 17:14:05"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:15:04"}
+{"Added Credit":37,"New Credit":37,"Old Credit":0,"User ID":"3","User Name":"ilkbal","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:15:04"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:15:24"}
+{"Status":200,"User Count":3,"level":"info","msg":"Listen all users","time":"2024-11-17 17:15:24"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-17 17:15:30"}
+{"Added Credit":65,"New Credit":102,"Old Credit":37,"User ID":"3","User Name":"ilkbal","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:15:30"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:15:34"}
+{"Status":200,"User Count":3,"level":"info","msg":"Listen all users","time":"2024-11-17 17:15:34"}

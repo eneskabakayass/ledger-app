@@ -6,6 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"ledger-app/internal/connections/database"
+	"ledger-app/logger"
 	"ledger-app/models"
 	"net/http"
 )
@@ -24,7 +25,7 @@ func CreateUser(c echo.Context) error {
 			errorMessage = append(errorMessage, fmt.Sprintf("Field %s failed validation: %s parameter: %s", err.Field(), err.Tag(), err.Param()))
 		}
 
-		logrus.WithFields(logrus.Fields{
+		logger.Logger.WithFields(logrus.Fields{
 			"details": errorMessage,
 		}).Error("Validation failed")
 
@@ -35,26 +36,75 @@ func CreateUser(c echo.Context) error {
 	}
 
 	if err := database.Db.Create(user).Error; err != nil {
-		logrus.Error(fmt.Sprintf("Failed to create user: %s", err.Error()))
+		logger.Logger.Error(fmt.Sprintf("Failed to create user: %s", err.Error()))
 
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
 	}
 
-	logrus.Info(fmt.Sprintf("Status:%d, User Name:%s, User ID:%d", http.StatusCreated, user.Name, user.ID))
+	logger.Logger.WithFields(map[string]interface{}{
+		"Status":    http.StatusOK,
+		"User Name": user.Name,
+		"User ID":   user.ID,
+	}).Info("Listen all users")
 
-	return c.JSON(http.StatusCreated, user)
+	return c.JSON(http.StatusCreated, map[string]interface{}{
+		"message": "User created successfully",
+		"user":    user,
+	})
 }
 
 func GetAllUser(c echo.Context) error {
 	var users []models.User
 
 	if err := database.Db.Find(&users).Error; err != nil {
-		logrus.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
+		logger.Logger.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
 
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch user"})
 	}
 
-	logrus.Info(fmt.Sprintf("Status:%d, User Count:%d", http.StatusOK, len(users)))
+	logger.Logger.WithFields(map[string]interface{}{
+		"Status":     http.StatusOK,
+		"User Count": len(users),
+	}).Info("Listen all users")
 
 	return c.JSON(http.StatusOK, users)
+}
+
+func AddUserCredit(c echo.Context) error {
+	userId := c.Param("id")
+	creditReq := new(models.CreditRequest)
+
+	if err := c.Bind(creditReq); err != nil || creditReq.Credit <= 0 {
+		logger.Logger.Error("Invalid credit input")
+
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid credit input"})
+	}
+
+	var user models.User
+	if err := database.Db.First(&user, userId).Error; err != nil {
+		logger.Logger.Error("User not found")
+
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "User not found"})
+	}
+
+	oldCredit := user.Credit
+	user.Credit += creditReq.Credit
+	if err := database.Db.Save(&user).Error; err != nil {
+		logger.Logger.Error("Failed to update credit")
+
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to update credit"})
+	}
+
+	logger.Logger.WithFields(map[string]interface{}{
+		"User ID":      userId,
+		"User Name":    user.Name,
+		"Old Credit":   oldCredit,
+		"New Credit":   user.Credit,
+		"Added Credit": creditReq.Credit,
+	}).Info("User credit updated successfully")
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Credit added successfully",
+		"user":    user,
+	})
 }

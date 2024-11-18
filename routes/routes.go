@@ -8,6 +8,8 @@ import (
 
 func RegisterRoutes(e *echo.Echo) {
 	e.Use(middleware.LogRequest)
+	e.GET("/health", handlers.HealthCheck)
 	e.GET("/users", handlers.GetAllUser)
 	e.POST("/createUser", handlers.CreateUser)
+	e.POST("/users/:id/credit", handlers.AddUserCredit)
 }

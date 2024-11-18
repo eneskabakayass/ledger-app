@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/joho/godotenv"
-	"github.com/sirupsen/logrus"
+	"ledger-app/logger"
 	"os"
 )
 
@@ -14,12 +14,12 @@ type Config struct {
 func LoadEnvironment() Config {
 	err := godotenv.Load()
 	if err != nil {
-		logrus.Error("Error loading .env file")
+		logger.Logger.Error("Error loading .env file")
 	}
 
 	dbUrl := os.Getenv("DB_URL")
 	if dbUrl == "" {
-		logrus.Error("DB_URL is required")
+		logger.Logger.Error("DB_URL is required")
 	}
 
 	return Config{
