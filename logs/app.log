@@ -169,3 +169,457 @@
 {"Added Credit":65,"New Credit":102,"Old Credit":37,"User ID":"3","User Name":"ilkbal","level":"info","msg":"User credit updated successfully","time":"2024-11-17 17:15:30"}
 {"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-17 17:15:34"}
 {"Status":200,"User Count":3,"level":"info","msg":"Listen all users","time":"2024-11-17 17:15:34"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:02:32"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:02:32"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:20:47"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:20:47"}
+{"Method":"GET","Url":"/health","level":"info","msg":"Incoming request","time":"2024-11-18 18:21:04"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-18 18:21:04"}
+{"Method":"POST","Url":"/createUser","level":"info","msg":"Incoming request","time":"2024-11-18 18:21:08"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:21:17"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:21:17"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:21:25"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 18:21:25"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:21:30"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:22:25"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:22:25"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:22:27"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:24:05"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:24:05"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:24:07"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 18:24:07"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:24:19"}
+{"level":"info","msg":"Credit of 0 added to User ID 1","time":"2024-11-18 18:24:19"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:24:23"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 18:24:23"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:24:24"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 18:24:24"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:25:03"}
+{"level":"info","msg":"Credit of 65 added to User ID 1","time":"2024-11-18 18:25:03"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:31:28"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:31:28"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:32:37"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:32:37"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:32:53"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:32:53"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:32:56"}
+{"level":"info","msg":"Credit of 65 added to User ID 1","time":"2024-11-18 18:32:56"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:32:58"}
+{"Status":200,"User ID":2,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:32:58"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:33:01"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:33:01"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:36:06"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:36:06"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:36:07"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:36:07"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:36:10"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:36:10"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:36:13"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:36:13"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:36:19"}
+{"level":"info","msg":"Credit of 37 added to User ID 1","time":"2024-11-18 18:36:19"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:36:22"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:36:22"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:37:19"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:37:19"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:37:20"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:37:20"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:37:26"}
+{"level":"info","msg":"Credit of 37 added to User ID 1","time":"2024-11-18 18:37:26"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:37:27"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 18:37:27"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:38:49"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:38:49"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:38:51"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:38:51"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:39:28"}
+{"level":"info","msg":"Credit of 37 added to User ID 1","time":"2024-11-18 18:39:28"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:39:30"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 18:39:30"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:40:22"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:40:22"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:40:26"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:40:26"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:40:32"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 18:40:32"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:40:35"}
+{"level":"info","msg":"Credit of 37 added to User ID 1","time":"2024-11-18 18:40:35"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:40:37"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 18:40:37"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:42:49"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:42:49"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:42:52"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 18:42:52"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:49:11"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:49:11"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:49:14"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-18 18:49:14"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:49:15"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-18 18:49:15"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:49:18"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:49:18"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:49:21"}
+{"level":"info","msg":"Credit of 37 added to User ID 1","time":"2024-11-18 18:49:21"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:49:25"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 18:49:25"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:51:34"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:51:34"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:51:37"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-18 18:51:37"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:51:41"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:51:41"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:51:45"}
+{"level":"error","msg":"User not found: sql: Scan error on column index 2, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 18:51:45"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:52:02"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 2, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 18:52:02"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:53:09"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:53:09"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:53:13"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-18 18:53:13"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:53:17"}
+{"level":"error","msg":"Failed to create user: unsupported Scan type: time.Time","time":"2024-11-18 18:53:17"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:53:46"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:53:46"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:53:49"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:53:49"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:53:52"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 18:53:52"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:53:55"}
+{"level":"info","msg":"Credit of 37 added to User ID 1","time":"2024-11-18 18:53:55"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:53:57"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 18:53:57"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 18:58:19"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 18:58:19"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 18:58:33"}
+{"Status":200,"User ID":2,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 18:58:33"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 18:58:35"}
+{"level":"info","msg":"Credit of 37 added to User ID 1","time":"2024-11-18 18:58:35"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 18:58:38"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 2, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 18:58:38"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:00:01"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:00:01"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 19:00:02"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 2, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 19:00:02"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 19:00:04"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 2, name \"created_at\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-18 19:00:04"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:01:07"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:01:07"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:42:48"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:42:48"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 19:42:51"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 19:42:51"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:45:03"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:45:03"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 19:45:05"}
+{"Status":200,"User ID":2,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 19:45:05"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 19:45:08"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 19:45:08"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:45:16"}
+{"level":"info","msg":"Credit of 65 added to User ID 1","time":"2024-11-18 19:45:16"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 19:45:18"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 19:45:18"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:45:26"}
+{"level":"info","msg":"Credit of 40 added to User ID 1","time":"2024-11-18 19:45:26"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 19:45:28"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 19:45:28"}
+{"Method":"POST","Url":"/users/4/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:45:34"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:45:34"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:46:08"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:46:08"}
+{"Method":"POST","Url":"/users/4/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:46:09"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:46:09"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:46:23"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:46:23"}
+{"Method":"POST","Url":"/users/4/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:46:24"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:46:24"}
+{"Method":"POST","Url":"/users/10/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:46:54"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:46:54"}
+{"Method":"POST","Url":"/users/10/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:47:28"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:47:28"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:47:33"}
+{"level":"info","msg":"Credit of 40 added to User ID 2","time":"2024-11-18 19:47:33"}
+{"Method":"POST","Url":"/users/31/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:47:41"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:47:41"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:48:46"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:48:46"}
+{"Method":"POST","Url":"/users/31/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:48:52"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:48:52"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:50:14"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:50:14"}
+{"Method":"POST","Url":"/users/31/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:50:18"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:50:18"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:50:42"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:50:42"}
+{"Method":"POST","Url":"/users/31/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:50:45"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:50:45"}
+{"Method":"POST","Url":"/users/dsadasda/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:51:02"}
+{"level":"error","msg":"Failed to convert user id: strconv.Atoi: parsing \"dsadasda\": invalid syntax","time":"2024-11-18 19:51:02"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:51:09"}
+{"level":"error","msg":"Invalid input: code=400, message=Syntax error: offset=18, error=invalid character '\\n' in string literal, internal=invalid character '\\n' in string literal","time":"2024-11-18 19:51:09"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 19:51:21"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 19:51:21"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:51:37"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:51:37"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:52:12"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:52:12"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:52:15"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:52:15"}
+{"Method":"POST","Url":"/users/4/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:52:20"}
+{"level":"error","msg":"Failed added to credit: Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`ledger_app`.`transactions`, CONSTRAINT `fk_users_credits` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))","time":"2024-11-18 19:52:20"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 19:56:37"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 19:56:37"}
+{"Method":"POST","Url":"/users/4/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:56:39"}
+{"level":"error","msg":"User not found: record not found","time":"2024-11-18 19:56:39"}
+{"Method":"POST","Url":"/users/4/creditd","level":"info","msg":"Incoming request","time":"2024-11-18 19:57:01"}
+{"Method":"POST","Url":"/users/4/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:57:06"}
+{"level":"error","msg":"Database error: code=400, message=Unmarshal type error: expected=int, got=string, field=Amount, offset=20, internal=json: cannot unmarshal string into Go struct field CreditRequest.Amount of type int","time":"2024-11-18 19:57:06"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:57:27"}
+{"level":"error","msg":"Database error: code=400, message=Unmarshal type error: expected=int, got=string, field=Amount, offset=20, internal=json: cannot unmarshal string into Go struct field CreditRequest.Amount of type int","time":"2024-11-18 19:57:27"}
+{"Method":"POST","Url":"/users/adasd/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:57:45"}
+{"level":"error","msg":"Failed to convert user id: strconv.Atoi: parsing \"adasd\": invalid syntax","time":"2024-11-18 19:57:45"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:57:50"}
+{"level":"error","msg":"Database error: code=400, message=Syntax error: offset=20, error=invalid character '\\n' in string literal, internal=invalid character '\\n' in string literal","time":"2024-11-18 19:57:50"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 19:58:01"}
+{"level":"error","msg":"Database error: code=400, message=Syntax error: offset=18, error=invalid character '\\n' in string literal, internal=invalid character '\\n' in string literal","time":"2024-11-18 19:58:01"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 20:01:01"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 20:01:01"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:01:03"}
+{"level":"error","msg":"Invalid input: code=400, message=Syntax error: offset=18, error=invalid character '\\n' in string literal, internal=invalid character '\\n' in string literal","time":"2024-11-18 20:01:03"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:01:09"}
+{"level":"info","msg":"Credit of 40 added to User ID 2","time":"2024-11-18 20:01:09"}
+{"Method":"POST","Url":"/users/sdasda/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:01:13"}
+{"level":"error","msg":"Failed to convert user ID: strconv.Atoi: parsing \"sdasda\": invalid syntax","time":"2024-11-18 20:01:13"}
+{"Method":"POST","Url":"/users/6/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:01:16"}
+{"level":"error","msg":"User not found with ID: 6","time":"2024-11-18 20:01:16"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:01:21"}
+{"level":"error","msg":"Invalid input: code=400, message=Unmarshal type error: expected=int, got=string, field=Amount, offset=20, internal=json: cannot unmarshal string into Go struct field CreditRequest.Amount of type int","time":"2024-11-18 20:01:21"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 20:01:47"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-18 20:01:47"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-18 20:02:19"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-18 20:02:19"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:21"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-18 20:02:21"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:25"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-18 20:02:25"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:29"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 20:02:29"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:32"}
+{"level":"error","msg":"Invalid input: code=400, message=Unmarshal type error: expected=int, got=string, field=Amount, offset=20, internal=json: cannot unmarshal string into Go struct field CreditRequest.Amount of type int","time":"2024-11-18 20:02:32"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:41"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 20:02:41"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:45"}
+{"level":"error","msg":"User not found with ID: 2","time":"2024-11-18 20:02:45"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:47"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 20:02:47"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:52"}
+{"level":"info","msg":"Credit of 40 added to User ID 1","time":"2024-11-18 20:02:52"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-18 20:02:55"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-18 20:02:55"}
+{"level":"fatal","msg":"Error migrate the databaseError 1292 (22007): Incorrect datetime value: '0000-00-00 00:00:00' for column 'transaction_time' at row 1","time":"2024-11-19 11:06:47"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:07:23"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:07:23"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:07:28"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-19 11:07:28"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:07:29"}
+{"Status":200,"User Count":0,"level":"info","msg":"Listen all users","time":"2024-11-19 11:07:29"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-19 11:07:31"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-19 11:07:31"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:07:35"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:07:35"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:07:39"}
+{"level":"info","msg":"Credit of 40 added to User ID 1","time":"2024-11-19 11:07:39"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:07:42"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:07:42"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:09:04"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:09:04"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:09:06"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:09:06"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:09:24"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:09:24"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-19 11:09:29"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-19 11:09:29"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:09:30"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:09:30"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:09:32"}
+{"level":"info","msg":"Credit of 40 added to User ID 1","time":"2024-11-19 11:09:32"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:09:34"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:09:34"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:10:58"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:10:58"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:11:13"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:11:13"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:11:25"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:11:25"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:12:37"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:12:37"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:12:40"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:12:40"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:12:50"}
+{"level":"info","msg":"Credit of 40 added to User ID 1","time":"2024-11-19 11:12:50"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:12:55"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time; sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:12:55"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:13:54"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:13:54"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:14:01"}
+{"level":"error","msg":"Failed to fetch user: sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time; sql: Scan error on column index 3, name \"transaction_time\": unsupported Scan, storing driver.Value type []uint8 into type *time.Time","time":"2024-11-19 11:14:01"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:16:21"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:16:21"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:16:23"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:16:23"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:16:42"}
+{"level":"info","msg":"Credit of 20 added to User ID 1","time":"2024-11-19 11:16:42"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:16:44"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:16:44"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:17:34"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:17:34"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:17:38"}
+{"level":"info","msg":"Credit of 32 added to User ID 1","time":"2024-11-19 11:17:38"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:17:40"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:17:40"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:21:48"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:21:48"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:21:50"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:21:50"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:22:32"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:22:32"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:22:33"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:22:33"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:23:13"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:23:13"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:23:14"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:23:14"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:23:39"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:23:39"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:23:41"}
+{"level":"info","msg":"Credit of 32 added to User ID 1","time":"2024-11-19 11:23:41"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:25:47"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:25:47"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:25:49"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:25:50"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:25:54"}
+{"level":"info","msg":"Credit of 32 added to User ID 1","time":"2024-11-19 11:25:54"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:25:56"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:25:56"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:29:39"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:29:39"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:29:42"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:29:42"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:32:04"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:32:04"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:32:11"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:32:11"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:32:12"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:32:12"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:32:59"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:32:59"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:33:01"}
+{"level":"info","msg":"Credit of 32 added to User ID 1","time":"2024-11-19 11:33:01"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:33:03"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:33:03"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:36:10"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:36:10"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:36:12"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:36:12"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:37:44"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:37:44"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:37:46"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:37:46"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:40:58"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:40:58"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:41:16"}
+{"level":"error","msg":"Failed to fetch credits for user 1: Error 1146 (42S02): Table 'ledger_app.credits' doesn't exist","time":"2024-11-19 11:41:16"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:42:01"}
+{"level":"error","msg":"Failed to fetch credits for user 1: Error 1146 (42S02): Table 'ledger_app.credits' doesn't exist","time":"2024-11-19 11:42:01"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:42:06"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:42:06"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:42:16"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:42:16"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:42:18"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:42:18"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:43:54"}
+{"level":"error","msg":"Failed to fetch user: Error 1146 (42S02): Table 'ledger_app.users' doesn't exist","time":"2024-11-19 11:43:54"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:44:02"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:44:02"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-19 11:44:06"}
+{"Status":200,"User ID":1,"User Name":"enes","level":"info","msg":"Listen all users","time":"2024-11-19 11:44:06"}
+{"Method":"GET","Url":"/health","level":"info","msg":"Incoming request","time":"2024-11-19 11:44:10"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:44:11"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:44:11"}
+{"Method":"POST","Url":"/users/3/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:44:18"}
+{"level":"error","msg":"User not found with ID: 3","time":"2024-11-19 11:44:18"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:44:24"}
+{"level":"error","msg":"Invalid input: code=400, message=Unmarshal type error: expected=int, got=number 32.233, field=Amount, offset=22, internal=json: cannot unmarshal number 32.233 into Go struct field CreditRequest.Amount of type int","time":"2024-11-19 11:44:24"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:45:27"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:45:27"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:45:29"}
+{"level":"error","msg":"Invalid input: code=400, message=Unmarshal type error: expected=int, got=number 32.233, field=Amount, offset=22, internal=json: cannot unmarshal number 32.233 into Go struct field CreditRequest.Amount of type int","time":"2024-11-19 11:45:29"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:49:03"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:49:03"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:49:06"}
+{"level":"info","msg":"Credit of %!d(float64=32.233) added to User ID 1","time":"2024-11-19 11:49:06"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:49:11"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:49:11"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:49:31"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:49:31"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:49:34"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:49:34"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:49:37"}
+{"level":"info","msg":"Credit of %!d(float64=32.233) added to User ID 1","time":"2024-11-19 11:49:37"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:49:40"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:49:40"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 11:49:53"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 11:49:53"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:49:55"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:49:55"}
+{"Method":"POST","Url":"/users/1/credit","level":"info","msg":"Incoming request","time":"2024-11-19 11:50:01"}
+{"level":"info","msg":"Credit of %!d(float64=32.1232131) added to User ID 1","time":"2024-11-19 11:50:01"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 11:50:03"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 11:50:03"}
+{"Method":"GET","Url":"/user/1","level":"info","msg":"Incoming request","time":"2024-11-19 17:57:21"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 17:57:31"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 17:57:31"}
+{"Method":"GET","Url":"/user/1","level":"info","msg":"Incoming request","time":"2024-11-19 17:57:35"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 18:07:20"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 18:07:20"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 18:07:23"}
+{"Status":200,"User Count":1,"level":"info","msg":"Listen all users","time":"2024-11-19 18:07:23"}
+{"Method":"GET","Url":"/user/1","level":"info","msg":"Incoming request","time":"2024-11-19 18:07:28"}
+{"Method":"POST","Url":"/user/create","level":"info","msg":"Incoming request","time":"2024-11-19 18:07:37"}
+{"Status":200,"User ID":2,"User Name":"ilkbal","level":"info","msg":"Listen all users","time":"2024-11-19 18:07:37"}
+{"Method":"GET","Url":"/user/1","level":"info","msg":"Incoming request","time":"2024-11-19 18:07:41"}
+{"Method":"GET","Url":"/user/2","level":"info","msg":"Incoming request","time":"2024-11-19 18:07:44"}
+{"Method":"GET","Url":"/user/1","level":"info","msg":"Incoming request","time":"2024-11-19 18:07:48"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 18:11:36"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 18:11:36"}
+{"Method":"GET","Url":"/user/5","level":"info","msg":"Incoming request","time":"2024-11-19 18:11:37"}
+{"Method":"GET","Url":"/user/5","level":"info","msg":"Incoming request","time":"2024-11-19 18:11:38"}
+{"Method":"GET","Url":"/user/5/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:11:49"}
+{"level":"error","msg":"User not found with ID: 5","time":"2024-11-19 18:11:49"}
+{"Method":"GET","Url":"/user/adsada/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:11:52"}
+{"level":"error","msg":"Failed to convert user ID: strconv.Atoi: parsing \"adsada\": invalid syntax","time":"2024-11-19 18:11:52"}
+{"Method":"GET","Url":"/user/4/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:11:54"}
+{"level":"error","msg":"User not found with ID: 4","time":"2024-11-19 18:11:54"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 18:14:18"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 18:14:18"}
+{"Method":"GET","Url":"/user/4/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:14:19"}
+{"level":"error","msg":"User not found with ID: 4","time":"2024-11-19 18:14:19"}
+{"Method":"GET","Url":"/user/2/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:14:22"}
+{"Method":"GET","Url":"/user/1/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:14:27"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 18:14:47"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 18:14:47"}
+{"Method":"GET","Url":"/user/1/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:14:48"}
+{"Method":"GET","Url":"/user/1/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:14:49"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 18:15:44"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 18:15:44"}
+{"Method":"GET","Url":"/user/1/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:15:45"}
+{"Method":"GET","Url":"/user/1/balance","level":"info","msg":"Incoming request","time":"2024-11-19 18:15:46"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 18:16:15"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-19 18:16:15"}
+{"Method":"POST","Url":"/users/2/credit","level":"info","msg":"Incoming request","time":"2024-11-19 18:20:29"}
+{"level":"info","msg":"Credit of 32.312 added to User ID 2","time":"2024-11-19 18:20:29"}
+{"Method":"GET","Url":"/users","level":"info","msg":"Incoming request","time":"2024-11-19 18:20:36"}
+{"Status":200,"User Count":2,"level":"info","msg":"Listen all users","time":"2024-11-19 18:20:36"}
+{"level":"info","msg":"Connected to the database with GORM","time":"2024-11-19 18:28:07"}
+{"level":"info","msg":"Starting server at port 3000","time":"2024-11-19 18:28:07"}
+{"Method":"GET","Url":"/users/balances","level":"info","msg":"Incoming request","time":"2024-11-19 18:28:52"}
+{"UserBalances":[{"total_balance":96.3562131,"user_id":1,"user_name":"enes"},{"total_balance":32.312,"user_id":2,"user_name":"ilkbal"}],"level":"info","msg":"Listen all users with total balance","time":"2024-11-19 18:28:52"}

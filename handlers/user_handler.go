@@ -1,14 +1,18 @@
 package handlers
 
 import (
+	"errors"
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
+	"gorm.io/gorm"
 	"ledger-app/internal/connections/database"
 	"ledger-app/logger"
 	"ledger-app/models"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 func CreateUser(c echo.Context) error {
@@ -41,6 +45,12 @@ func CreateUser(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
 	}
 
+	if err := database.Db.Preload("Credits").Find(&user).Error; err != nil {
+		logger.Logger.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
+
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to fetch user"})
+	}
+
 	logger.Logger.WithFields(map[string]interface{}{
 		"Status":    http.StatusOK,
 		"User Name": user.Name,
@@ -56,10 +66,10 @@ func CreateUser(c echo.Context) error {
 func GetAllUser(c echo.Context) error {
 	var users []models.User
 
-	if err := database.Db.Find(&users).Error; err != nil {
+	if err := database.Db.Preload("Credits").Find(&users).Error; err != nil {
 		logger.Logger.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
 
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch user"})
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to fetch users"})
 	}
 
 	logger.Logger.WithFields(map[string]interface{}{
@@ -70,41 +80,104 @@ func GetAllUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
-func AddUserCredit(c echo.Context) error {
-	userId := c.Param("id")
+func AddCreditToUser(c echo.Context) error {
+	userID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		logger.Logger.Error("Failed to convert user ID: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
+	}
+
 	creditReq := new(models.CreditRequest)
+	if err := c.Bind(creditReq); err != nil {
+		logger.Logger.Error("Invalid input: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request payload"})
+	}
 
-	if err := c.Bind(creditReq); err != nil || creditReq.Credit <= 0 {
-		logger.Logger.Error("Invalid credit input")
-
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid credit input"})
+	if creditReq.Amount <= 0 {
+		logger.Logger.Error("Invalid credit amount: must be positive")
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Credit amount must be greater than zero"})
 	}
 
 	var user models.User
-	if err := database.Db.First(&user, userId).Error; err != nil {
-		logger.Logger.Error("User not found")
+	if err := database.Db.First(&user, userID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Logger.Error("User not found with ID: ", strconv.Itoa(userID))
+			return c.JSON(http.StatusNotFound, map[string]string{"error": "User not found"})
+		}
 
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "User not found"})
+		logger.Logger.Error("Database error: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
 	}
 
-	oldCredit := user.Credit
-	user.Credit += creditReq.Credit
-	if err := database.Db.Save(&user).Error; err != nil {
-		logger.Logger.Error("Failed to update credit")
-
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to update credit"})
+	credit := models.Transaction{
+		UserID:          uint(userID),
+		Amount:          creditReq.Amount,
+		TransactionTime: time.Now().UTC(),
 	}
 
-	logger.Logger.WithFields(map[string]interface{}{
-		"User ID":      userId,
-		"User Name":    user.Name,
-		"Old Credit":   oldCredit,
-		"New Credit":   user.Credit,
-		"Added Credit": creditReq.Credit,
-	}).Info("User credit updated successfully")
+	if err := database.Db.Create(&credit).Error; err != nil {
+		logger.Logger.Error("Failed to add credit: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to add credit"})
+	}
+
+	logger.Logger.Infof("Credit of %v added to User ID %d", creditReq.Amount, userID)
+	return c.JSON(http.StatusOK, map[string]string{"message": "Credit added successfully"})
+}
+
+func GetUserBalance(c echo.Context) error {
+	userId, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		logger.Logger.Error("Failed to convert user ID: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
+	}
+
+	var user models.User
+	if err := database.Db.Preload("Credits").First(&user, userId).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Logger.Error("User not found with ID: ", strconv.Itoa(userId))
+			return c.JSON(http.StatusNotFound, map[string]string{"error": "User not found"})
+		}
+
+		logger.Logger.Error("Database error: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
+	}
+
+	totalBalance := 0.0
+	for _, credit := range user.Credits {
+		totalBalance += credit.Amount
+	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Credit added successfully",
-		"user":    user,
+		"user_id":       user.ID,
+		"user_name":     user.Name,
+		"total_balance": totalBalance,
 	})
+}
+
+func GetAllUsersTotalBalance(c echo.Context) error {
+	var users []models.User
+
+	if err := database.Db.Preload("Credits").Find(&users).Error; err != nil {
+		logger.Logger.Error(fmt.Sprintf("Failed to fetch users: %s", err.Error()))
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch users"})
+	}
+
+	var userWithBalances []map[string]interface{}
+
+	for _, user := range users {
+		totalBalance := 0.0
+		for _, credit := range user.Credits {
+			totalBalance += credit.Amount
+		}
+
+		userWithBalances = append(userWithBalances, map[string]interface{}{
+			"user_id":       user.ID,
+			"user_name":     user.Name,
+			"total_balance": totalBalance,
+		})
+	}
+
+	logger.Logger.WithField("UserBalances", userWithBalances).Info("Listen all users with total balance")
+
+	return c.JSON(http.StatusOK, userWithBalances)
 }

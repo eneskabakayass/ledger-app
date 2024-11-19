@@ -21,7 +21,7 @@ func Connect() {
 		logger.Logger.Fatal("Error connecting to the database:", err)
 	}
 
-	err = Db.AutoMigrate(&models.User{})
+	err = Db.AutoMigrate(&models.User{}, &models.Transaction{})
 	if err != nil {
 		logger.Logger.Fatal("Error migrate the database", err)
 	}
