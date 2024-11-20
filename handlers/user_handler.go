@@ -67,10 +67,15 @@ func GetAllUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to fetch users"})
 	}
 
+	if len(users) == 0 {
+		return c.JSON(http.StatusOK, map[string]string{"message": "No users found"})
+	}
+
 	logger.Logger.WithFields(map[string]interface{}{
 		"Status":     http.StatusOK,
 		"User Count": len(users),
 	}).Info("Listen all users")
+
 	return c.JSON(http.StatusOK, users)
 }
 
@@ -147,6 +152,7 @@ func GetUserBalance(c echo.Context) error {
 	}
 
 	totalBalance := 0.0
+
 	for _, credit := range user.Credits {
 		totalBalance += credit.Amount
 	}
@@ -164,6 +170,10 @@ func GetAllUsersTotalBalance(c echo.Context) error {
 	if err := database.Db.Preload("Credits").Find(&users).Error; err != nil {
 		logger.Logger.Error(fmt.Sprintf("Failed to fetch users: %s", err.Error()))
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch users"})
+	}
+
+	if len(users) == 0 {
+		return c.JSON(http.StatusOK, map[string]string{"message": "No users found"})
 	}
 
 	var userWithBalances []map[string]interface{}
