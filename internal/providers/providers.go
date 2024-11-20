@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"ledger-app/config"
 	"ledger-app/internal/connections/database"
+	"ledger-app/internal/middleware"
 	"ledger-app/logger"
 	"ledger-app/routes"
 )
@@ -17,6 +18,7 @@ func InitDatabase() {
 }
 
 func RegisterMiddlewares(e *echo.Echo) {
+	e.Use(middleware.LogRequest)
 	routes.RegisterRoutes(e)
 }
 

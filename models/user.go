@@ -1,8 +1,6 @@
 package models
 
-import (
-	"github.com/go-playground/validator/v10"
-)
+import "ledger-app/internal/validation"
 
 type User struct {
 	ID      uint          `gorm:"primaryKey"`
@@ -10,12 +8,6 @@ type User struct {
 	Credits []Transaction `gorm:"foreignKey:UserID"`
 }
 
-var validate *validator.Validate
-
-func init() {
-	validate = validator.New()
-}
-
 func (u *User) Validate() error {
-	return validate.Struct(u)
+	return validation.ValidateStruct().Struct(u)
 }

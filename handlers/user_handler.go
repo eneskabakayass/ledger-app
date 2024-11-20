@@ -8,6 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 	"ledger-app/internal/connections/database"
+	"ledger-app/internal/validation"
 	"ledger-app/logger"
 	"ledger-app/models"
 	"net/http"
@@ -22,9 +23,8 @@ func CreateUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input"})
 	}
 
-	if err := user.Validate(); err != nil {
+	if err := validation.ValidateStruct().Struct(user); err != nil {
 		var errorMessage []string
-
 		for _, err := range err.(validator.ValidationErrors) {
 			errorMessage = append(errorMessage, fmt.Sprintf("Field %s failed validation: %s parameter: %s", err.Field(), err.Tag(), err.Param()))
 		}
@@ -32,7 +32,6 @@ func CreateUser(c echo.Context) error {
 		logger.Logger.WithFields(logrus.Fields{
 			"details": errorMessage,
 		}).Error("Validation failed")
-
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"error":   "Validation failed",
 			"details": errorMessage,
@@ -41,13 +40,11 @@ func CreateUser(c echo.Context) error {
 
 	if err := database.Db.Create(user).Error; err != nil {
 		logger.Logger.Error(fmt.Sprintf("Failed to create user: %s", err.Error()))
-
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
 	}
 
 	if err := database.Db.Preload("Credits").Find(&user).Error; err != nil {
 		logger.Logger.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
-
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to fetch user"})
 	}
 
@@ -55,8 +52,7 @@ func CreateUser(c echo.Context) error {
 		"Status":    http.StatusOK,
 		"User Name": user.Name,
 		"User ID":   user.ID,
-	}).Info("Listen all users")
-
+	}).Info("Created new user")
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"message": "User created successfully",
 		"user":    user,
@@ -68,7 +64,6 @@ func GetAllUser(c echo.Context) error {
 
 	if err := database.Db.Preload("Credits").Find(&users).Error; err != nil {
 		logger.Logger.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
-
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to fetch users"})
 	}
 
@@ -76,7 +71,6 @@ func GetAllUser(c echo.Context) error {
 		"Status":     http.StatusOK,
 		"User Count": len(users),
 	}).Info("Listen all users")
-
 	return c.JSON(http.StatusOK, users)
 }
 
@@ -93,9 +87,19 @@ func AddCreditToUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request payload"})
 	}
 
-	if creditReq.Amount <= 0 {
-		logger.Logger.Error("Invalid credit amount: must be positive")
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Credit amount must be greater than zero"})
+	if err := validation.ValidateStruct().Struct(creditReq); err != nil {
+		var errorMessage []string
+		for _, err := range err.(validator.ValidationErrors) {
+			errorMessage = append(errorMessage, fmt.Sprintf("Field %s failed validation: %s parameter: %s", err.Field(), err.Tag(), err.Param()))
+		}
+
+		logger.Logger.WithFields(logrus.Fields{
+			"details": errorMessage,
+		}).Error("Validation failed")
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error":   "Validation failed",
+			"details": errorMessage,
+		})
 	}
 
 	var user models.User
@@ -147,6 +151,7 @@ func GetUserBalance(c echo.Context) error {
 		totalBalance += credit.Amount
 	}
 
+	logger.Logger.Infof("User ID %d has total balance of %v", userId, totalBalance)
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"user_id":       user.ID,
 		"user_name":     user.Name,
@@ -156,7 +161,6 @@ func GetUserBalance(c echo.Context) error {
 
 func GetAllUsersTotalBalance(c echo.Context) error {
 	var users []models.User
-
 	if err := database.Db.Preload("Credits").Find(&users).Error; err != nil {
 		logger.Logger.Error(fmt.Sprintf("Failed to fetch users: %s", err.Error()))
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch users"})
@@ -178,6 +182,5 @@ func GetAllUsersTotalBalance(c echo.Context) error {
 	}
 
 	logger.Logger.WithField("UserBalances", userWithBalances).Info("Listen all users with total balance")
-
 	return c.JSON(http.StatusOK, userWithBalances)
 }
