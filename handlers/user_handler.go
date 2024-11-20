@@ -194,3 +194,96 @@ func GetAllUsersTotalBalance(c echo.Context) error {
 	logger.Logger.WithField("UserBalances", userWithBalances).Info("Listen all users with total balance")
 	return c.JSON(http.StatusOK, userWithBalances)
 }
+
+func TransferCredit(c echo.Context) error {
+	senderID, err := strconv.Atoi(c.Param("sender_id"))
+	if err != nil {
+		logger.Logger.Error("Failed to convert sender ID: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid sender ID format"})
+	}
+
+	receiverID, err := strconv.Atoi(c.Param("receiver_id"))
+	if err != nil {
+		logger.Logger.Error("Failed to convert receiver ID: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid receiver ID format"})
+	}
+
+	creditReq := new(models.CreditRequest)
+	if err := c.Bind(creditReq); err != nil {
+		logger.Logger.Error("Invalid input: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request payload"})
+	}
+
+	var sender models.User
+	if err := database.Db.Preload("Credits").First(&sender, senderID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Logger.Error("Sender not found with ID: ", strconv.Itoa(senderID))
+			return c.JSON(http.StatusNotFound, map[string]string{"error": "Sender not found"})
+		}
+
+		logger.Logger.Error("Database error: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
+	}
+
+	var receiver models.User
+	if err := database.Db.Preload("Credits").First(&receiver, receiverID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Logger.Error("Receiver not found with ID: ", strconv.Itoa(receiverID))
+			return c.JSON(http.StatusNotFound, map[string]string{"error": "Receiver not found"})
+		}
+
+		logger.Logger.Error("Database error: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
+	}
+
+	totalBalance := 0.0
+	for _, credit := range sender.Credits {
+		totalBalance += credit.Amount
+	}
+
+	if totalBalance < creditReq.Amount {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Insufficient balance"})
+	}
+
+	tx := database.Db.Begin()
+
+	transaction := models.Transaction{
+		UserID:          uint(senderID),
+		Amount:          -creditReq.Amount,
+		TransactionTime: time.Now().UTC(),
+		SenderID:        uintPointer(uint(senderID)),
+		ReceiverID:      uintPointer(uint(receiverID)),
+	}
+
+	receiverTransaction := models.Transaction{
+		UserID:          uint(receiverID),
+		Amount:          creditReq.Amount,
+		TransactionTime: time.Now().UTC(),
+		SenderID:        uintPointer(uint(senderID)),
+		ReceiverID:      uintPointer(uint(receiverID)),
+	}
+
+	if err := tx.Create(&transaction).Error; err != nil {
+		tx.Rollback()
+		logger.Logger.Error("Failed to add credit: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to add credit"})
+	}
+
+	if err := tx.Create(&receiverTransaction).Error; err != nil {
+		tx.Rollback()
+		logger.Logger.Error("Failed to add credit: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to add credit"})
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		logger.Logger.Error("Failed to commit transaction: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to commit transaction"})
+	}
+
+	logger.Logger.Infof("Credit of %v transferred from User ID %d to User ID %d", creditReq.Amount, senderID, receiverID)
+	return c.JSON(http.StatusOK, map[string]string{"message": "Credit transferred successfully"})
+}
+
+func uintPointer(val uint) *uint {
+	return &val
+}

@@ -12,4 +12,5 @@ func RegisterRoutes(e *echo.Echo) {
 	e.GET("/users/balances", handlers.GetAllUsersTotalBalance)
 	e.POST("/user/create", handlers.CreateUser)
 	e.POST("/users/:id/credit", handlers.AddCreditToUser)
+	e.POST("/users/:sender_id/transfer/:receiver_id", handlers.TransferCredit)
 }

@@ -9,7 +9,9 @@ type Transaction struct {
 	ID              uint      `gorm:"primaryKey"`
 	UserID          uint      `gorm:"not null"`
 	Amount          float64   `gorm:"not null"`
-	TransactionTime time.Time `gorm:"type:timestamp;" validate:"required"`
+	TransactionTime time.Time `gorm:"type:timestamp;not null"`
+	SenderID        *uint     `gorm:"index"`
+	ReceiverID      *uint     `gorm:"index"`
 }
 
 type CreditRequest struct {
