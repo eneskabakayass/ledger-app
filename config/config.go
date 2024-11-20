@@ -11,7 +11,7 @@ type Config struct {
 	DBUrl string
 }
 
-func LoadEnvironment() Config {
+func LoadEnvironment() *Config {
 	err := godotenv.Load()
 	if err != nil {
 		logger.Logger.Error("Error loading .env file")
@@ -22,7 +22,7 @@ func LoadEnvironment() Config {
 		logger.Logger.Error("DB_URL is required")
 	}
 
-	return Config{
+	return &Config{
 		Port:  getEnv("PORT", "3000"),
 		DBUrl: getEnv("DB_URL", "root@tcp(localhost:3306)/ledger_app"),
 	}

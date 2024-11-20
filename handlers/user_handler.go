@@ -163,9 +163,9 @@ func GetAllUsersTotalBalance(c echo.Context) error {
 	}
 
 	var userWithBalances []map[string]interface{}
-
 	for _, user := range users {
 		totalBalance := 0.0
+
 		for _, credit := range user.Credits {
 			totalBalance += credit.Amount
 		}
