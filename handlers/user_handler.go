@@ -152,7 +152,6 @@ func GetUserBalance(c echo.Context) error {
 	}
 
 	totalBalance := 0.0
-
 	for _, credit := range user.Credits {
 		totalBalance += credit.Amount
 	}
@@ -212,6 +211,21 @@ func TransferCredit(c echo.Context) error {
 	if err := c.Bind(creditReq); err != nil {
 		logger.Logger.Error("Invalid input: ", err.Error())
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request payload"})
+	}
+
+	if err := validation.ValidateStruct().Struct(creditReq); err != nil {
+		var errorMessage []string
+		for _, err := range err.(validator.ValidationErrors) {
+			errorMessage = append(errorMessage, fmt.Sprintf("Field %s failed validation: %s parameter: %s", err.Field(), err.Tag(), err.Param()))
+		}
+
+		logger.Logger.WithFields(logrus.Fields{
+			"details": errorMessage,
+		}).Error("Validation failed")
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error":   "Validation failed",
+			"details": errorMessage,
+		})
 	}
 
 	var sender models.User
@@ -286,4 +300,118 @@ func TransferCredit(c echo.Context) error {
 
 func uintPointer(val uint) *uint {
 	return &val
+}
+
+func UserWithdrawsCredit(c echo.Context) error {
+	userID, err := strconv.Atoi(c.Param("id"))
+
+	fmt.Println(userID)
+
+	if err != nil {
+		logger.Logger.Error("Failed to convert user ID: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
+	}
+
+	creditReq := new(models.CreditRequest)
+	if err := c.Bind(creditReq); err != nil {
+		logger.Logger.Error("Invalid input: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request payload"})
+	}
+
+	if err := validation.ValidateStruct().Struct(creditReq); err != nil {
+		var errorMessage []string
+
+		for _, err := range err.(validator.ValidationErrors) {
+			errorMessage = append(errorMessage, fmt.Sprintf("Field %s failed validation: %s parameter: %s", err.Field(), err.Tag(), err.Param()))
+		}
+
+		logger.Logger.WithFields(logrus.Fields{
+			"details": errorMessage,
+		}).Error("Validation failed")
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error":   "Validation failed",
+			"details": errorMessage,
+		})
+	}
+
+	var user models.User
+	if err := database.Db.Preload("Credits").First(&user, userID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Logger.Error("User not found with ID: ", strconv.Itoa(userID))
+			return c.JSON(http.StatusNotFound, map[string]string{"error": "User not found"})
+		}
+
+		logger.Logger.Error("Database error: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
+	}
+
+	totalBalance := 0.0
+	for _, credit := range user.Credits {
+		totalBalance += credit.Amount
+	}
+
+	if totalBalance < creditReq.Amount {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Insufficient balance"})
+	}
+
+	tx := database.Db.Begin()
+
+	transaction := &models.Transaction{
+		UserID:          uint(userID),
+		Amount:          -creditReq.Amount,
+		TransactionTime: time.Now().UTC(),
+	}
+
+	if err := tx.Create(transaction).Error; err != nil {
+		tx.Rollback()
+		logger.Logger.Error("Failed to add credit: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to add credit"})
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		logger.Logger.Error("Failed to commit transaction: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to commit transaction"})
+	}
+
+	logger.Logger.Infof("Credit of %v withdrawn from User ID %d", creditReq.Amount, userID)
+	return c.JSON(http.StatusOK, map[string]string{"message": "Credit withdrawn successfully"})
+}
+
+func GetUserBalanceAtTime(c echo.Context) error {
+	userID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		logger.Logger.Error("Failed to convert user ID: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
+	}
+
+	var user models.User
+	if err := database.Db.Preload("Credits").First(&user, userID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Logger.Error("User not found with ID: ", strconv.Itoa(userID))
+			return c.JSON(http.StatusNotFound, map[string]string{"error": "User not found"})
+		}
+
+		logger.Logger.Error("Database error: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
+	}
+
+	transactionTime, err := time.Parse(time.RFC3339, c.QueryParam("time"))
+	if err != nil {
+		logger.Logger.Error("Failed to parse time: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid time format"})
+	}
+
+	totalBalance := 0.0
+	for _, credit := range user.Credits {
+		if credit.TransactionTime.Before(transactionTime) {
+			totalBalance += credit.Amount
+		}
+	}
+
+	logger.Logger.Infof("User ID %d has total balance of %v at time %v", userID, totalBalance, transactionTime)
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"user_id":       user.ID,
+		"user_name":     user.Name,
+		"total_balance": totalBalance,
+	})
 }
