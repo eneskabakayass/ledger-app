@@ -1,2 +1,2 @@
 .env
-FILE_PATH=logs
+FILE_PATH=logs/app.log
