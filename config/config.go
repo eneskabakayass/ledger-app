@@ -7,8 +7,10 @@ import (
 )
 
 type Config struct {
-	Port  string
-	DBUrl string
+	Port                 string
+	DBUrl                string
+	DefaultAdminUserName string
+	DefaultAdminPassword string
 }
 
 func LoadEnvironment() *Config {
@@ -17,14 +19,11 @@ func LoadEnvironment() *Config {
 		logger.Logger.Error("Error loading .env file")
 	}
 
-	dbUrl := os.Getenv("DB_URL")
-	if dbUrl == "" {
-		logger.Logger.Error("DB_URL is required")
-	}
-
 	return &Config{
-		Port:  getEnv("PORT", "3000"),
-		DBUrl: getEnv("DB_URL", "root@tcp(localhost:3306)/ledger_app"),
+		Port:                 getEnv("PORT", "3000"),
+		DBUrl:                getEnv("DB_URL", "root@tcp(localhost:3306)/ledger_app"),
+		DefaultAdminUserName: getEnv("DEFAULT_ADMIN_USERNAME", "admin"),
+		DefaultAdminPassword: getEnv("DEFAULT_ADMIN_PASSWORD", "admin123"),
 	}
 }
 

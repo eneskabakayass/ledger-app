@@ -13,5 +13,6 @@ func main() {
 	providers.InitLogger()
 	providers.InitDatabase()
 	providers.RegisterMiddlewares(e)
+	providers.InitDefaultAdmin()
 	providers.StartServer(e, cfg)
 }

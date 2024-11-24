@@ -6,7 +6,9 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"ledger-app/internal/auth"
 	"ledger-app/internal/connections/database"
 	"ledger-app/internal/validation"
 	"ledger-app/logger"
@@ -134,16 +136,29 @@ func AddCreditToUser(c echo.Context) error {
 }
 
 func GetUserBalance(c echo.Context) error {
-	userId, err := strconv.Atoi(c.Param("id"))
+	tokenUserID := c.Get("userID")
+	if tokenUserID == nil {
+		logger.Logger.Error("Failed to retrieve user ID from token")
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized"})
+	}
+
+	requestUserID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		logger.Logger.Error("Failed to convert user ID: ", err.Error())
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
 	}
 
+	role, _ := c.Get("role").(string)
+
+	if role != "admin" && uint(tokenUserID.(float64)) != uint(requestUserID) {
+		logger.Logger.Warnf("User ID %d attempted to access balance of User ID %d", tokenUserID, requestUserID)
+		return c.JSON(http.StatusForbidden, map[string]string{"error": "Access denied"})
+	}
+
 	var user models.User
-	if err := database.Db.Preload("Credits").First(&user, userId).Error; err != nil {
+	if err := database.Db.Preload("Credits").First(&user, requestUserID).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			logger.Logger.Error("User not found with ID: ", strconv.Itoa(userId))
+			logger.Logger.Error("User not found with ID: ", strconv.Itoa(requestUserID))
 			return c.JSON(http.StatusNotFound, map[string]string{"error": "User not found"})
 		}
 
@@ -156,7 +171,7 @@ func GetUserBalance(c echo.Context) error {
 		totalBalance += credit.Amount
 	}
 
-	logger.Logger.Infof("User ID %d has total balance of %v", userId, totalBalance)
+	logger.Logger.Infof("User ID %d has total balance of %v", requestUserID, totalBalance)
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"user_id":       user.ID,
 		"user_name":     user.Name,
@@ -195,6 +210,12 @@ func GetAllUsersTotalBalance(c echo.Context) error {
 }
 
 func TransferCredit(c echo.Context) error {
+	tokenUserID := c.Get("userID")
+	if tokenUserID == nil {
+		logger.Logger.Error("Failed to retrieve user ID from token")
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized"})
+	}
+
 	senderID, err := strconv.Atoi(c.Param("sender_id"))
 	if err != nil {
 		logger.Logger.Error("Failed to convert sender ID: ", err.Error())
@@ -205,6 +226,12 @@ func TransferCredit(c echo.Context) error {
 	if err != nil {
 		logger.Logger.Error("Failed to convert receiver ID: ", err.Error())
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid receiver ID format"})
+	}
+
+	role, _ := c.Get("role").(string)
+	if role != "admin" && uint(tokenUserID.(float64)) != uint(senderID) {
+		logger.Logger.Warnf("User ID %d attempted to access balance of User ID %d", tokenUserID, senderID)
+		return c.JSON(http.StatusForbidden, map[string]string{"error": "Access denied"})
 	}
 
 	creditReq := new(models.CreditRequest)
@@ -298,18 +325,23 @@ func TransferCredit(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{"message": "Credit transferred successfully"})
 }
 
-func uintPointer(val uint) *uint {
-	return &val
-}
-
 func UserWithdrawsCredit(c echo.Context) error {
+	tokenUserID := c.Get("userID")
+	if tokenUserID == nil {
+		logger.Logger.Error("Failed to retrieve user ID from token")
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized"})
+	}
+
 	userID, err := strconv.Atoi(c.Param("id"))
-
-	fmt.Println(userID)
-
 	if err != nil {
 		logger.Logger.Error("Failed to convert user ID: ", err.Error())
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
+	}
+
+	role, _ := c.Get("role").(string)
+	if role != "admin" && uint(tokenUserID.(float64)) != uint(userID) {
+		logger.Logger.Warnf("User ID %d attempted to access balance of User ID %d", tokenUserID, tokenUserID)
+		return c.JSON(http.StatusForbidden, map[string]string{"error": "Access denied"})
 	}
 
 	creditReq := new(models.CreditRequest)
@@ -378,10 +410,22 @@ func UserWithdrawsCredit(c echo.Context) error {
 }
 
 func GetUserBalanceAtTime(c echo.Context) error {
+	tokenUserID := c.Get("userID")
+	if tokenUserID == nil {
+		logger.Logger.Error("Failed to retrieve user ID from token")
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized"})
+	}
+
 	userID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		logger.Logger.Error("Failed to convert user ID: ", err.Error())
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
+	}
+
+	role, _ := c.Get("role").(string)
+	if role != "admin" && uint(tokenUserID.(float64)) != uint(userID) {
+		logger.Logger.Warnf("User ID %d attempted to access balance of User ID %d", tokenUserID, userID)
+		return c.JSON(http.StatusForbidden, map[string]string{"error": "Access denied"})
 	}
 
 	var user models.User
@@ -414,4 +458,104 @@ func GetUserBalanceAtTime(c echo.Context) error {
 		"user_name":     user.Name,
 		"total_balance": totalBalance,
 	})
+}
+
+func RegisterUser(c echo.Context) error {
+	registerRoutes := new(struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	})
+
+	if err := c.Bind(registerRoutes); err != nil {
+		logger.Logger.Error("Invalid Input")
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input"})
+	}
+
+	var existingUser models.User
+	if err := database.Db.Where("name = ?", registerRoutes.Username).First(&existingUser).Error; err == nil {
+		logger.Logger.Error("Username already taken")
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Username already taken"})
+	}
+
+	passwordHash, err := bcrypt.GenerateFromPassword([]byte(registerRoutes.Password), bcrypt.DefaultCost)
+	if err != nil {
+		logger.Logger.Error("Error hashing password")
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Error processing password"})
+	}
+
+	newUser := models.User{
+		Name:         registerRoutes.Username,
+		PasswordHash: string(passwordHash),
+		IsAdmin:      false,
+	}
+
+	if err := database.Db.Create(&newUser).Error; err != nil {
+		logger.Logger.Error(fmt.Sprintf("Failed to create user: %s", err.Error()))
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
+	}
+
+	token, err := auth.GenerateToken(newUser.ID, "user")
+	if err != nil {
+		logger.Logger.Error("Error generating token")
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Error generating token"})
+	}
+
+	logger.Logger.WithFields(map[string]interface{}{
+		"user":  newUser,
+		"token": token,
+	}).Info("User registered successfully")
+	return c.JSON(http.StatusCreated, map[string]interface{}{
+		"message": "User registered successfully",
+		"user":    newUser,
+		"token":   token,
+	})
+}
+
+func LoginUser(c echo.Context) error {
+	loginPayload := new(struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	})
+
+	if err := c.Bind(loginPayload); err != nil {
+		logger.Logger.Error("Invalid input")
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input"})
+	}
+
+	var user models.User
+	if err := database.Db.Where("name = ?", loginPayload.Username).First(&user).Error; err != nil {
+		logger.Logger.Warn("Invalid username or password")
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Invalid username or password"})
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(loginPayload.Password)); err != nil {
+		logger.Logger.Warn("Invalid username or password")
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Invalid username or password"})
+	}
+
+	role := "user"
+	if user.IsAdmin {
+		role = "admin"
+	}
+
+	token, err := auth.GenerateToken(user.ID, role)
+	if err != nil {
+		logger.Logger.Error("Error generating token")
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Error generating token"})
+	}
+
+	logger.Logger.WithFields(map[string]interface{}{
+		"userID":   user.ID,
+		"username": user.Name,
+		"role":     role,
+	}).Info("User logged in successfully")
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Login successful",
+		"token":   token,
+	})
+}
+
+func uintPointer(val uint) *uint {
+	return &val
 }
