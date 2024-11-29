@@ -19,6 +19,5 @@ func RegisterUsersRoutes(e *echo.Echo) {
 	adminGroup := e.Group("/admin", middleware.JWTMiddleware, middleware.AdminMiddleware)
 	adminGroup.GET("/users", handlers.GetAllUser)
 	adminGroup.GET("/balances", handlers.GetAllUsersTotalBalance)
-	adminGroup.POST("/users/create", handlers.CreateUser)
 	adminGroup.POST("/users/:id/credit", handlers.AddCreditToUser)
 }

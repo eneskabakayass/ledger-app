@@ -18,49 +18,6 @@ import (
 	"time"
 )
 
-func CreateUser(c echo.Context) error {
-	user := new(models.User)
-
-	if err := c.Bind(user); err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input"})
-	}
-
-	if err := validation.ValidateStruct().Struct(user); err != nil {
-		var errorMessage []string
-		for _, err := range err.(validator.ValidationErrors) {
-			errorMessage = append(errorMessage, fmt.Sprintf("Field %s failed validation: %s parameter: %s", err.Field(), err.Tag(), err.Param()))
-		}
-
-		logger.Logger.WithFields(logrus.Fields{
-			"details": errorMessage,
-		}).Error("Validation failed")
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"error":   "Validation failed",
-			"details": errorMessage,
-		})
-	}
-
-	if err := database.Db.Create(user).Error; err != nil {
-		logger.Logger.Error(fmt.Sprintf("Failed to create user: %s", err.Error()))
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
-	}
-
-	if err := database.Db.Preload("Credits").Find(&user).Error; err != nil {
-		logger.Logger.Error(fmt.Sprintf("Failed to fetch user: %s", err.Error()))
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Failed to fetch user"})
-	}
-
-	logger.Logger.WithFields(map[string]interface{}{
-		"Status":    http.StatusOK,
-		"User Name": user.Name,
-		"User ID":   user.ID,
-	}).Info("Created new user")
-	return c.JSON(http.StatusCreated, map[string]interface{}{
-		"message": "User created successfully",
-		"user":    user,
-	})
-}
-
 func GetAllUser(c echo.Context) error {
 	var users []models.User
 
