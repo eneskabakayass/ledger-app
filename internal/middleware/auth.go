@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"ledger-app/internal/auth"
@@ -31,7 +30,6 @@ func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 			return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Invalid token claims"})
 		}
 
-		fmt.Println(claims["userID"])
 		c.Set("userID", claims["userID"])
 		c.Set("role", claims["role"])
 

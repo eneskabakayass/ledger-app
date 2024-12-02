@@ -20,4 +20,5 @@ func RegisterUsersRoutes(e *echo.Echo) {
 	adminGroup.GET("/users", handlers.GetAllUser)
 	adminGroup.GET("/balances", handlers.GetAllUsersTotalBalance)
 	adminGroup.POST("/users/:id/credit", handlers.AddCreditToUser)
+	adminGroup.PUT("/users/:userID/role", handlers.UpdateUserRole)
 }
