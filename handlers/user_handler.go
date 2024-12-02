@@ -27,6 +27,7 @@ func GetAllUser(c echo.Context) error {
 	}
 
 	if len(users) == 0 {
+		logger.Logger.Error(fmt.Sprintf("No users found"))
 		return c.JSON(http.StatusOK, map[string]string{"message": "No users found"})
 	}
 
@@ -144,6 +145,7 @@ func GetAllUsersTotalBalance(c echo.Context) error {
 	}
 
 	if len(users) == 0 {
+		logger.Logger.Error("No users found")
 		return c.JSON(http.StatusOK, map[string]string{"message": "No users found"})
 	}
 

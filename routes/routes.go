@@ -5,6 +5,5 @@ import (
 )
 
 func RegisterRoutes(e *echo.Echo) {
-	RegisterHealthRoutes(e)
 	RegisterUsersRoutes(e)
 }
