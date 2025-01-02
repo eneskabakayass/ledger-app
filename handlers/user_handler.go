@@ -137,37 +137,6 @@ func GetUserBalance(c echo.Context) error {
 	})
 }
 
-func GetAllUsersTotalBalance(c echo.Context) error {
-	var users []models.User
-	if err := database.Db.Preload("Credits").Find(&users).Error; err != nil {
-		logger.Logger.Error(fmt.Sprintf("Failed to fetch users: %s", err.Error()))
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch users"})
-	}
-
-	if len(users) == 0 {
-		logger.Logger.Error("No users found")
-		return c.JSON(http.StatusOK, map[string]string{"message": "No users found"})
-	}
-
-	var userWithBalances []map[string]interface{}
-	for _, user := range users {
-		totalBalance := 0.0
-
-		for _, credit := range user.Credits {
-			totalBalance += credit.Amount
-		}
-
-		userWithBalances = append(userWithBalances, map[string]interface{}{
-			"user_id":       user.ID,
-			"user_name":     user.Name,
-			"total_balance": totalBalance,
-		})
-	}
-
-	logger.Logger.WithField("UserBalances", userWithBalances).Info("Listen all users with total balance")
-	return c.JSON(http.StatusOK, userWithBalances)
-}
-
 func TransferCredit(c echo.Context) error {
 	tokenUserID := c.Get("userID")
 	if tokenUserID == nil {
@@ -284,6 +253,37 @@ func TransferCredit(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{"message": "Credit transferred successfully"})
 }
 
+func GetAllUsersTotalBalance(c echo.Context) error {
+	var users []models.User
+	if err := database.Db.Preload("Credits").Find(&users).Error; err != nil {
+		logger.Logger.Error(fmt.Sprintf("Failed to fetch users: %s", err.Error()))
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch users"})
+	}
+
+	if len(users) == 0 {
+		logger.Logger.Error("No users found")
+		return c.JSON(http.StatusOK, map[string]string{"message": "No users found"})
+	}
+
+	var userWithBalances []map[string]interface{}
+	for _, user := range users {
+		totalBalance := 0.0
+
+		for _, credit := range user.Credits {
+			totalBalance += credit.Amount
+		}
+
+		userWithBalances = append(userWithBalances, map[string]interface{}{
+			"user_id":       user.ID,
+			"user_name":     user.Name,
+			"total_balance": totalBalance,
+		})
+	}
+
+	logger.Logger.WithField("UserBalances", userWithBalances).Info("Listen all users with total balance")
+	return c.JSON(http.StatusOK, userWithBalances)
+}
+
 func UserWithdrawsCredit(c echo.Context) error {
 	tokenUserID := c.Get("userID")
 	if tokenUserID == nil {
@@ -368,57 +368,6 @@ func UserWithdrawsCredit(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{"message": "Credit withdrawn successfully"})
 }
 
-func GetUserBalanceAtTime(c echo.Context) error {
-	tokenUserID := c.Get("userID")
-	if tokenUserID == nil {
-		logger.Logger.Error("Failed to retrieve user ID from token")
-		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized"})
-	}
-
-	userID, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		logger.Logger.Error("Failed to convert user ID: ", err.Error())
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
-	}
-
-	role, _ := c.Get("role").(string)
-	if role != "admin" && uint(tokenUserID.(float64)) != uint(userID) {
-		logger.Logger.Warnf("User ID %d attempted to access balance of User ID %d", tokenUserID, userID)
-		return c.JSON(http.StatusForbidden, map[string]string{"error": "Access denied"})
-	}
-
-	var user models.User
-	if err := database.Db.Preload("Credits").First(&user, userID).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			logger.Logger.Error("User not found with ID: ", strconv.Itoa(userID))
-			return c.JSON(http.StatusNotFound, map[string]string{"error": "User not found"})
-		}
-
-		logger.Logger.Error("Database error: ", err.Error())
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
-	}
-
-	transactionTime, err := time.Parse(time.RFC3339, c.QueryParam("time"))
-	if err != nil {
-		logger.Logger.Error("Failed to parse time: ", err.Error())
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid time format"})
-	}
-
-	totalBalance := 0.0
-	for _, credit := range user.Credits {
-		if credit.TransactionTime.Before(transactionTime) {
-			totalBalance += credit.Amount
-		}
-	}
-
-	logger.Logger.Infof("User ID %d has total balance of %v at time %v", userID, totalBalance, transactionTime)
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"user_id":       user.ID,
-		"user_name":     user.Name,
-		"total_balance": totalBalance,
-	})
-}
-
 func RegisterUser(c echo.Context) error {
 	registerRoutes := new(struct {
 		Username string `json:"username"`
@@ -467,6 +416,57 @@ func RegisterUser(c echo.Context) error {
 		"message": "User registered successfully",
 		"user":    newUser,
 		"token":   token,
+	})
+}
+
+func GetUserBalanceAtTime(c echo.Context) error {
+	tokenUserID := c.Get("userID")
+	if tokenUserID == nil {
+		logger.Logger.Error("Failed to retrieve user ID from token")
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized"})
+	}
+
+	userID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		logger.Logger.Error("Failed to convert user ID: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid user ID format"})
+	}
+
+	role, _ := c.Get("role").(string)
+	if role != "admin" && uint(tokenUserID.(float64)) != uint(userID) {
+		logger.Logger.Warnf("User ID %d attempted to access balance of User ID %d", tokenUserID, userID)
+		return c.JSON(http.StatusForbidden, map[string]string{"error": "Access denied"})
+	}
+
+	var user models.User
+	if err := database.Db.Preload("Credits").First(&user, userID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Logger.Error("User not found with ID: ", strconv.Itoa(userID))
+			return c.JSON(http.StatusNotFound, map[string]string{"error": "User not found"})
+		}
+
+		logger.Logger.Error("Database error: ", err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Database error"})
+	}
+
+	transactionTime, err := time.Parse(time.RFC3339, c.QueryParam("time"))
+	if err != nil {
+		logger.Logger.Error("Failed to parse time: ", err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid time format"})
+	}
+
+	totalBalance := 0.0
+	for _, credit := range user.Credits {
+		if credit.TransactionTime.Before(transactionTime) {
+			totalBalance += credit.Amount
+		}
+	}
+
+	logger.Logger.Infof("User ID %d has total balance of %v at time %v", userID, totalBalance, transactionTime)
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"user_id":       user.ID,
+		"user_name":     user.Name,
+		"total_balance": totalBalance,
 	})
 }
 
