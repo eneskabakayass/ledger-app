@@ -24,14 +24,6 @@ func RegisterMiddlewares(e *echo.Echo) {
 	routes.RegisterRoutes(e)
 }
 
-func StartServer(e *echo.Echo, cfg *config.Config) {
-	logger.Logger.Infof("Starting server at port %s", cfg.Port)
-
-	if err := e.Start(":" + cfg.Port); err != nil {
-		logger.Logger.Fatal("Error starting server", err)
-	}
-}
-
 func InitDefaultAdmin() {
 	var count int64
 	if err := database.Db.Model(&models.User{}).Where("is_admin = ?", true).Count(&count).Error; err != nil {
@@ -61,4 +53,12 @@ func InitDefaultAdmin() {
 	}
 
 	logger.Logger.Infof("Default admin created with username: %s and password: %s\n", adminConfig.DefaultAdminUserName, adminConfig.DefaultAdminPassword)
+}
+
+func StartServer(e *echo.Echo, cfg *config.Config) {
+	logger.Logger.Infof("Starting server at port %s", cfg.Port)
+
+	if err := e.Start(":" + cfg.Port); err != nil {
+		logger.Logger.Fatal("Error starting server", err)
+	}
 }
