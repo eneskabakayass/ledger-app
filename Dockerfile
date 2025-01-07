@@ -22,6 +22,6 @@ COPY .env /.env
 
 RUN mkdir -p /logs && touch /logs/app.log && chmod -R 777 /logs
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["./ledger"]

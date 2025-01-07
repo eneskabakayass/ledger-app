@@ -20,7 +20,7 @@ func LoadEnvironment() *Config {
 	}
 
 	return &Config{
-		Port:                 getEnv("PORT", "3000"),
+		Port:                 getEnv("PORT", "80"),
 		DBUrl:                getEnv("DB_URL", "root:12345@tcp(db:3306)/ledger_app"),
 		DefaultAdminUserName: getEnv("DEFAULT_ADMIN_USERNAME", "admin"),
 		DefaultAdminPassword: getEnv("DEFAULT_ADMIN_PASSWORD", "admin123"),
