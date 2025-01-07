@@ -18,9 +18,9 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=builder /app/ledger .
 
-COPY .env /app/ledger/.env
+COPY .env /.env
 
-RUN mkdir -p /app/logs && touch /app/logs/app.log && chmod -R 777 /app/logs
+RUN mkdir -p /logs && touch /logs/app.log && chmod -R 777 /logs
 
 EXPOSE 8080
 
